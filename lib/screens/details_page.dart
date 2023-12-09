@@ -1,24 +1,25 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 
-import '../api/api_source.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../utils/meal_detail.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsPage extends StatelessWidget {
+  final DetailNew mealDetail;
   final String id;
 
-  const DetailsPage({super.key, required this.id});
+  const DetailsPage({super.key, required this.mealDetail, required this.id});
 
-  @override
-  State<DetailsPage> createState() => _DetailsPageState();
-}
-
-class _DetailsPageState extends State<DetailsPage> {
-  late Future<DetailNew> mealDetail;
-
-  @override
-  void initState() {
-    mealDetail = ApiSource().getMealDetail(widget.id);
-    super.initState();
+  Future<void> _launchURL(String? youtubeURL) async {
+    if (youtubeURL != null) {
+      Uri uri = Uri.parse(youtubeURL);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      } else {
+        print('Could not launch $youtubeURL');
+      }
+    }
   }
 
   @override
@@ -63,6 +64,13 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               const SizedBox(height: 8),
               Text(mealDetail.instruction ?? 'No instructions available.'),
+              const SizedBox(height: 16),
+              ElevatedButton(
+                onPressed: () {
+                  _launchURL(mealDetail.youtube);
+                },
+                child: const Text('Watch Tutorial'),
+              ),
             ],
           ),
         ),
@@ -76,11 +84,29 @@ class _DetailsPageState extends State<DetailsPage> {
       final ingredient = mealDetail.getIngredient(i);
       final measure = mealDetail.getMeasure(i);
 
-      if (ingredient != null && measure != null) {
-        ingredientsWidgets.add(
-          Text('$ingredient: $measure'),
-        );
+      if (ingredient == null || ingredient.isEmpty) {
+        continue; // Skip ingredients with null or empty values
       }
+
+      ingredientsWidgets.add(
+        Row(
+          children: [
+            Expanded(
+              child: Text(
+                '$ingredient: ',
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            if (measure != null && measure.isNotEmpty)
+              Expanded(
+                child: Text(
+                  measure,
+                  style: const TextStyle(fontWeight: FontWeight.normal),
+                ),
+              ),
+          ],
+        ),
+      );
     }
     return Column(children: ingredientsWidgets);
   }

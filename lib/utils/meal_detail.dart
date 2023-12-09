@@ -225,7 +225,97 @@ class DetailNew {
     };
   }
 
-  getIngredient(int i) {}
+  String? getIngredient(int i) {
+    switch (i) {
+      case 1:
+        return ingre1;
+      case 2:
+        return ingre2;
+      case 3:
+        return ingre3;
+      case 4:
+        return ingre4;
+      case 5:
+        return ingre5;
+      case 6:
+        return ingre6;
+      case 7:
+        return ingre7;
+      case 8:
+        return ingre8;
+      case 9:
+        return ingre9;
+      case 10:
+        return ingre10;
+      case 11:
+        return ingre11;
+      case 12:
+        return ingre12;
+      case 13:
+        return ingre13;
+      case 14:
+        return ingre14;
+      case 15:
+        return ingre15;
+      case 16:
+        return ingre16;
+      case 17:
+        return ingre17;
+      case 18:
+        return ingre18;
+      case 19:
+        return ingre19;
+      case 20:
+        return ingre20;
+      default:
+        return null; 
+    }
+  }
 
-  getMeasure(int i) {}
+  String? getMeasure(int i) {
+    switch (i) {
+      case 1:
+        return measure1;
+      case 2:
+        return measure2;
+      case 3:
+        return measure3;
+      case 4:
+        return measure4;
+      case 5:
+        return measure5;
+      case 6:
+        return measure6;
+      case 7:
+        return measure7;
+      case 8:
+        return measure8;
+      case 9:
+        return measure9;
+      case 10:
+        return measure10;
+      case 11:
+        return measure11;
+      case 12:
+        return measure12;
+      case 13:
+        return measure13;
+      case 14:
+        return measure14;
+      case 15:
+        return measure15;
+      case 16:
+        return measure16;
+      case 17:
+        return measure17;
+      case 18:
+        return measure18;
+      case 19:
+        return measure19;
+      case 20:
+        return measure20;
+      default:
+        return null; 
+    }
+  }
 }

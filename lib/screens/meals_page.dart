@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 
 import '../api/api_source.dart';
 import '../utils/meal.dart';
+import '../utils/meal_detail.dart';
 import 'details_page.dart';
 
 class MealsPage extends StatefulWidget {
@@ -77,12 +80,17 @@ class _MealsPageState extends State<MealsPage> {
                   fit: BoxFit.cover,
                 )
               : null,
-          onTap: () {
+          onTap: () async {
+            DetailNew detailData =
+                await ApiSource().getMealDetail(meals[index].id!);
             Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return DetailsPage(mealDetail: meals[index]);
+                  return DetailsPage(
+                    mealDetail: detailData,
+                    id: meals[index].id!,
+                  );
                 },
               ),
             );
